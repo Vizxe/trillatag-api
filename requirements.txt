@@ -25,6 +25,7 @@ tensorboard
 transformers==4.39.*
 tqdm
 wandb
+Flask
 
 # API
 SpeechRecognition==3.10.0
