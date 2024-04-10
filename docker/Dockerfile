@@ -17,13 +17,8 @@ RUN chmod +x /scripts/*
 ### DEVELOPERS/ADVANCED USERS ###
 # Clone text-generation-webui
 RUN git clone https://github.com/Vizxe/text-generation-webui /src
-# Use script to check out specific version
-ARG VERSION_TAG
-ENV VERSION_TAG=${VERSION_TAG}
-RUN . /scripts/checkout_src_version.sh
 
 RUN cp -ar /src /app
-
 
 FROM app_base AS app_nvidia
 # Install pytorch for CUDA 12.1
@@ -31,7 +26,6 @@ RUN pip3 install torch==2.2.1 torchvision==0.17.1 torchaudio==2.2.1 \
     --index-url https://download.pytorch.org/whl/cu121 
 # Install oobabooga/text-generation-webui
 RUN pip3 install -r /app/requirements.txt
-
 
 # COMMON
 FROM ubuntu:22.04 AS run_base
@@ -56,9 +50,6 @@ ENV PYTHONUNBUFFERED=1
 ARG BUILD_DATE
 ENV BUILD_DATE=$BUILD_DATE
 RUN echo "$BUILD_DATE" > /build_date.txt
-ARG VERSION_TAG
-ENV VERSION_TAG=$VERSION_TAG
-RUN echo "$VERSION_TAG" > /version_tag.txt
 # Copy and enable all scripts
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
