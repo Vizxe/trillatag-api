@@ -26,6 +26,7 @@ transformers==4.39.*
 tqdm
 wandb
 Flask
+huggingface_hub
 
 # API
 SpeechRecognition==3.10.0
