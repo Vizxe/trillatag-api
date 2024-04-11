@@ -14,6 +14,4 @@ eval "extra_launch_args=($EXTRA_LAUNCH_ARGS)"
 LAUNCHER=($@ ${extra_launch_args[@]})
 
 # Launch the server with ${CMD[@]} + ${EXTRA_LAUNCH_ARGS[@]}
-"${LAUNCHER[@]}" &
-
-python app/api_app.py
+"${LAUNCHER[@]}"
