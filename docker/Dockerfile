@@ -13,7 +13,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip3 install --upgrade pip setuptools
 
 # Clone text-generation-webui
-RUN git clone https://github.com/Vizxe/text-generation-webui /src
+RUN git clone https://github.com/Vizxe/trillatag-api /src
 
 RUN cp -ar /src /app
 
