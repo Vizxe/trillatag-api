@@ -11,10 +11,7 @@ ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip3 install --upgrade pip setuptools
-# Copy and enable all scripts
-COPY ./scripts /scripts
-RUN chmod +x /scripts/*
-### DEVELOPERS/ADVANCED USERS ###
+
 # Clone text-generation-webui
 RUN git clone https://github.com/Vizxe/text-generation-webui /src
 
@@ -47,11 +44,6 @@ ENV PYTHONUNBUFFERED=1
 ARG BUILD_DATE
 ENV BUILD_DATE=$BUILD_DATE
 RUN echo "$BUILD_DATE" > /build_date.txt
-# Copy and enable all scripts
-COPY ./scripts /scripts
-RUN chmod +x /scripts/*
-# Run
-ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
 
 
 FROM run_base AS base-nvidia
@@ -60,4 +52,5 @@ COPY --from=app_nvidia $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "Nvidia Base" > /variant.txt
 ENV EXTRA_LAUNCH_ARGS=""
+WORKDIR /
 CMD ["python3", "/app/server.py"]
